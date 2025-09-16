@@ -1,5 +1,6 @@
 package com.tarea1gen.tarea1gensprinboot.service;
 
+import com.tarea1gen.tarea1gensprinboot.model.Author;
 import com.tarea1gen.tarea1gensprinboot.model.Posteo;
 
 import java.util.List;

@@ -1,6 +1,8 @@
 package com.tarea1gen.tarea1gensprinboot.service;
 
+import com.tarea1gen.tarea1gensprinboot.model.Author;
 import com.tarea1gen.tarea1gensprinboot.model.Posteo;
+import com.tarea1gen.tarea1gensprinboot.repository.IAuthor;
 import com.tarea1gen.tarea1gensprinboot.repository.IPosteo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
