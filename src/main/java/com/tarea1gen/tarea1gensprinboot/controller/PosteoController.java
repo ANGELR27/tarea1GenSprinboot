@@ -38,7 +38,7 @@ public class PosteoController {
     @PostMapping
     public ResponseEntity<Posteo> createPosteo(@RequestBody Posteo posteo) {
         if (posteo.getTitulo() == null || posteo.getTitulo().isBlank()
-                || posteo.getAutor() == null || posteo.getAutor().isBlank()) {
+                || posteo.getPersona() == null) {
             return ResponseEntity.badRequest().build();
         }
         Posteo creado = posteoService.save(posteo);
@@ -50,7 +50,7 @@ public class PosteoController {
     @PutMapping("/{id}")
     public ResponseEntity<Posteo> updatePosteo(@PathVariable Long id, @RequestBody Posteo posteo) {
         if (posteo.getTitulo() == null || posteo.getTitulo().isBlank()
-                || posteo.getAutor() == null || posteo.getAutor().isBlank()) {
+                || posteo.getPersona() == null) {
             return ResponseEntity.badRequest().build();
         }
         Posteo actualizado = posteoService.update(id, posteo);

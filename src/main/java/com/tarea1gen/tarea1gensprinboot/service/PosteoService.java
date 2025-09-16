@@ -15,6 +15,9 @@ public class PosteoService implements IServicePosteo {
     @Autowired
     private IPosteo posteoRepo;
 
+    @Autowired
+    private IAuthor authorRepo;
+
 
     @Override
     public List<Posteo> findAllPosteo() {
@@ -28,6 +31,11 @@ public class PosteoService implements IServicePosteo {
 
     @Override
     public Posteo save(Posteo posteo) {
+        // Asegurar que el Author exista si viene con solo id
+        if (posteo.getPersona() != null && posteo.getPersona().getId() != null) {
+            Author a = authorRepo.findById(posteo.getPersona().getId()).orElse(null);
+            posteo.setPersona(a);
+        }
         return posteoRepo.save(posteo);
     }
 
@@ -39,7 +47,13 @@ public class PosteoService implements IServicePosteo {
         }
         Posteo toUpdate = existente.get();
         toUpdate.setTitulo(posteo.getTitulo());
-        toUpdate.setAutor(posteo.getAutor());
+        if (posteo.getPersona() != null) {
+            Author a = null;
+            if (posteo.getPersona().getId() != null) {
+                a = authorRepo.findById(posteo.getPersona().getId()).orElse(null);
+            }
+            toUpdate.setPersona(a);
+        }
         return posteoRepo.save(toUpdate);
     }
 

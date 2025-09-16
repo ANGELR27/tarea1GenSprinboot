@@ -1,7 +1,10 @@
 package com.tarea1gen.tarea1gensprinboot.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "posteos")
@@ -13,16 +16,22 @@ public class Posteo {
     @Column(nullable = false)
     private String titulo;
 
-    @Column(nullable = false )
-    private String autor;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "author_id", nullable = false)
+    @JsonBackReference
+    private Author persona;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Comment> comments = new ArrayList<>();
 
     public Posteo() {
     }
 
-    public Posteo(Long id, String titulo, String autor) {
+    public Posteo(Long id, String titulo, Author persona) {
         this.id = id;
         this.titulo = titulo;
-        this.autor = autor;
+        this.persona = persona;
     }
 
     public Long getId() {
@@ -41,15 +50,23 @@ public class Posteo {
         this.titulo = titulo;
     }
 
-    public String getAutor() {
-        return autor;
+    public Author getPersona() {
+        return persona;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setPersona(Author persona) {
+        this.persona = persona;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
     @Override
     public String toString() {
-        return "Posteo{id=" + id + ", titulo='" + titulo + "', autor='" + autor + "'}";
+        return "Posteo{id=" + id + ", titulo='" + titulo + "', authorId=" + (persona != null ? persona.getId() : null) + "}";
     }
 }

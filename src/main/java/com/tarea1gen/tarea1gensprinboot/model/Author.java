@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Author")
+@Table(name = "authors")
 
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @Column(nullable = false)
     String name;
@@ -56,6 +56,14 @@ public class Author {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Posteo> getPosteos() {
+        return posteos;
+    }
+
+    public void setPosteos(List<Posteo> posteos) {
+        this.posteos = posteos;
     }
     @Override
     public String toString() {
